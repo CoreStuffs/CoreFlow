@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  coreflow.engine:
+    image: ${DOCKER_REGISTRY-}coreflowengine
+    build:
+      context: .
+      dockerfile: CoreFlow.Engine/Dockerfile
