@@ -10,12 +10,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\CoreFlow.Shared\CoreFlow.Shared.csproj" />
+    <ProjectReference Include="..\CoreFlow.Shared\CoreFlow.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Reference Include="System.Activities">
-      <HintPath>..\src\System.Activitites\System.Activities.dll</HintPath>
+      <HintPath>..\System.Activitites\System.Activities.dll</HintPath>
     </Reference>
   </ItemGroup>
 

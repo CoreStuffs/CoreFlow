@@ -11,14 +11,12 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.9.10" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controllers\" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\CoreFlow.Activities\CoreFlow.Activities.csproj" />
+    <ProjectReference Include="..\CoreFlow.Activities\CoreFlow.Activities.csproj" />
     <ProjectReference Include="..\CoreFlow.Shared\CoreFlow.Shared.csproj" />
   </ItemGroup>
 
