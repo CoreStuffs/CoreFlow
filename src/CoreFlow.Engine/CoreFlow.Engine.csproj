@@ -15,7 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\CoreFlow.Activities\CoreFlow.Activities.csproj" />
     <ProjectReference Include="..\CoreFlow.Activities\CoreFlow.Activities.csproj" />
     <ProjectReference Include="..\CoreFlow.Shared\CoreFlow.Shared.csproj" />
   </ItemGroup>

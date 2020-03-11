@@ -21,7 +21,7 @@ namespace CoreFlow.Engine.Controllers
 
         // GET: api/WorkflowInstance
         [HttpGet]
-        public IEnumerable<WorkflowInstance> Get()
+        public IEnumerable<String> Get()
         {
             return runtime.GetInstances();
         }

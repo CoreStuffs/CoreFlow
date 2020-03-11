@@ -1,8 +1,11 @@
 ﻿using CoreFlow.Activities.Tracking;
 using System;
+using System.Xaml;
 using System.Activities;
+using System.Activities.Expressions;
 using System.Activities.Hosting;
 using System.Activities.Runtime.DurableInstancing;
+using System.Activities.Statements;
 using System.Activities.Tracking;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -17,6 +20,33 @@ namespace CoreFlow.Activities
 
         public RuntimeEngine()
         {
+
+            Variable<string> json = new Variable<string>
+            {
+                Name = "json"
+            };
+            Variable<string> response = new Variable<string>
+            {
+                Name = "response"
+            };
+
+            Activity wf = new Sequence
+            {
+                Variables = { json, response },
+                Activities =
+                            {
+                                new WriteLine()
+                                {
+                                    Text = "Hello"
+                                },
+                                new WriteLine()
+                                {
+                                    Text = "World"
+                                },
+                            }
+            };
+            var app = new WorkflowApplication(wf);
+            Console.WriteLine(app.Id);
         }
 
         public RuntimeEngine WithInstanceStore(InstanceStore instanceStore)
@@ -36,9 +66,10 @@ namespace CoreFlow.Activities
             return extensions.OfType<T>().FirstOrDefault();
         }
 
-        public IEnumerable<WorkflowInstance> GetInstances()
+        public IEnumerable<String> GetInstances()
         {
-            return new WorkflowInstance[0];
+            
+            return new List<String>() { "abc" };
         }
 
 
