@@ -21,34 +21,6 @@ namespace CoreFlow.Activities
         Guid lastid;
         public RuntimeEngine()
         {
-
-            Variable<string> json = new Variable<string>
-            {
-                Name = "json"
-            };
-            Variable<string> response = new Variable<string>
-            {
-                Name = "response"
-            };
-
-            Activity wf = new Sequence
-            {
-                Variables = { json, response },
-                Activities =
-                            {
-                                new WriteLine()
-                                {
-                                    Text = "Hello"
-                                },
-                                new WriteLine()
-                                {
-                                    Text = "World"
-                                },
-                            }
-            };
-            var app = new WorkflowApplication(wf);
-            Console.WriteLine(app.Id);
-            lastid = app.Id;
         }
 
         public RuntimeEngine WithInstanceStore(InstanceStore instanceStore)
@@ -72,6 +44,17 @@ namespace CoreFlow.Activities
         {
             return GetExtension<IInstanceDirectory>()?.GetInstances();
         }
+
+        public Guid StartNewInstance(String modelName)
+        {
+            var wf = this.GetExtension<IWorkflowModelCatalog>()?.GetActiveModel(modelName);
+            var app = new WorkflowApplication(wf);
+            app.Run();
+            lastid = app.Id;
+            Console.WriteLine(lastid);
+            return app.Id;
+        }
+
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1305:Specify IFormatProvider", Justification = "<Pending>")]
         private WorkflowApplication EnrichWorkflowApplication(WorkflowApplication workflowApplication)

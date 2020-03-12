@@ -29,7 +29,7 @@ namespace CoreFlow.Engine
             services.AddControllers();
             services.AddSingleton<RuntimeEngine>((services) => {
                 var store = new CoreFlow.Activities.InstanceStores.FileInstanceStore("./");
-                return new RuntimeEngine().WithInstanceStore(store);
+                return new RuntimeEngine().WithInstanceStore(store).AddExtension(new CoreFlow.Activities.WorkflowModelCatalog.FileWorkflowModelCatalog());
             });
 
         }

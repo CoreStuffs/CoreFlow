@@ -19,7 +19,7 @@ namespace CoreFlow.Activities.Communication.QuestionAnswer
             Task.Run(() =>
             {
                 Questions.Add(ActivityId, Question);
-                Console.WriteLine("Question added");
+                Console.WriteLine("Question added: "+ Question);
            
             });
 

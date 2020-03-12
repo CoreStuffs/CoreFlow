@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CoreFlow.Engine.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/instance")]
     [ApiController]
     public class WorkflowInstanceController : ControllerBase
     {
@@ -24,11 +24,13 @@ namespace CoreFlow.Engine.Controllers
         [HttpGet]
         public IEnumerable<WorkflowInstance> Get()
         {
+            runtime.StartNewInstance("Process1");
+
             return runtime.GetInstances();
         }
 
         // GET: api/WorkflowInstance/5
-        [HttpGet("{id}", Name = "Get")]
+        [HttpGet("{id}")]
         public string Get(int id)
         {
             return "value";

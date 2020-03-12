@@ -12,45 +12,39 @@ namespace CoreFlow.Engine.Controllers
 {
     // Maintain the database of Workflow Definitions
 
-    [Route("api/[controller]")]
+    [Route("api/model")]
     [ApiController]
-    public class WorkflowDefinitionController : ControllerBase
+    public class WorkflowModelController : ControllerBase
     {
         RuntimeEngine runtime;
-        public WorkflowDefinitionController(RuntimeEngine runtime)
+        public WorkflowModelController(RuntimeEngine runtime)
         {
             this.runtime = runtime;
         }
 
-        // GET: api/WorkflowDefinition
+        // GET: api/WorkflowModel
         [HttpGet]
         public IEnumerable<String> Get()
         {
-            return new String[];
+            return new String[0];
         }
 
-        // GET: api/WorkflowDefinition/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        // GET: api/WorkflowModel/5
+        [HttpGet("{name}")]
+        public string Get(String name)
         {
             return "value";
         }
 
         // POST: api/WorkflowInstance
-        [HttpPost]
+        [HttpPost("{name}")]
         public void Post([FromBody] string value)
         {
         }
 
-        // PUT: api/WorkflowDefinition/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE: api/WorkflowDefinition/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        // DELETE: api/WorkflowModel/5
+        [HttpDelete("{name}")]
+        public void Delete(String name)
         {
         }
     }
