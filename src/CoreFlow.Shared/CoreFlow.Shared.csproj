@@ -5,4 +5,8 @@
     <Configurations>Debug;Release;Debug-no-compose</Configurations>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="System.Activities" Version="3.0.0-20200310-05" />
+  </ItemGroup>
+
 </Project>

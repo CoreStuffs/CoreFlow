@@ -1,0 +1,65 @@
+﻿<Sequence xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:fq="clr-namespace:CoreFlow.Activities.Communication.QuestionAnswer;assembly=CoreFlow.Activities" xmlns:fr="clr-namespace:CoreFlow.Activities.Communication.REST;assembly=CoreFlow.Activities" xmlns:njl="clr-namespace:Newtonsoft.Json.Linq;assembly=Newtonsoft.Json" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Sequence.Variables>
+    <x:Reference>__ReferenceID0</x:Reference>
+    <x:Reference>__ReferenceID1</x:Reference>
+  </Sequence.Variables>
+  <fr:CallRestApiActivity Url="https://api.sunrise-sunset.org/json?lat=36.7201600&amp;lng=-4.4203400&amp;date=today">
+    <fr:CallRestApiActivity.Result>
+      <OutArgument x:TypeArguments="x:String">
+        <VariableReference x:TypeArguments="x:String">
+          <VariableReference.Variable>
+            <Variable x:TypeArguments="x:String" x:Name="__ReferenceID0" Name="json" />
+          </VariableReference.Variable>
+        </VariableReference>
+      </OutArgument>
+    </fr:CallRestApiActivity.Result>
+  </fr:CallRestApiActivity>
+  <WriteLine>
+    <InArgument x:TypeArguments="x:String">
+      <InvokeMethod x:TypeArguments="x:String" MethodName="Concat" TargetType="x:String">
+        <InArgument x:TypeArguments="x:String" EvaluationOrder="0" Expression="-&gt; Sunrise at " />
+        <InArgument x:TypeArguments="x:String" EvaluationOrder="1">
+          <InvokeMethod x:TypeArguments="x:String" MethodName="ToString">
+            <InvokeMethod.TargetObject>
+              <InArgument x:TypeArguments="njl:JToken" EvaluationOrder="0">
+                <InvokeMethod x:TypeArguments="njl:JToken" MethodName="SelectToken">
+                  <InvokeMethod.TargetObject>
+                    <InArgument x:TypeArguments="njl:JObject" EvaluationOrder="0">
+                      <InvokeMethod x:TypeArguments="njl:JObject" MethodName="Parse" TargetType="njl:JObject">
+                        <InArgument x:TypeArguments="x:String" EvaluationOrder="1">
+                          <VariableValue x:TypeArguments="x:String" Variable="{x:Reference __ReferenceID0}" />
+                        </InArgument>
+                      </InvokeMethod>
+                    </InArgument>
+                  </InvokeMethod.TargetObject>
+                  <InArgument x:TypeArguments="x:String" EvaluationOrder="1" Expression="$.results.sunrise" />
+                </InvokeMethod>
+              </InArgument>
+            </InvokeMethod.TargetObject>
+          </InvokeMethod>
+        </InArgument>
+      </InvokeMethod>
+    </InArgument>
+  </WriteLine>
+  <fq:QuestionAnswerActivity Question="What is your name?">
+    <fq:QuestionAnswerActivity.Result>
+      <OutArgument x:TypeArguments="x:String">
+        <VariableReference x:TypeArguments="x:String">
+          <VariableReference.Variable>
+            <Variable x:TypeArguments="x:String" x:Name="__ReferenceID1" Name="response" />
+          </VariableReference.Variable>
+        </VariableReference>
+      </OutArgument>
+    </fq:QuestionAnswerActivity.Result>
+  </fq:QuestionAnswerActivity>
+  <WriteLine>
+    <InArgument x:TypeArguments="x:String">
+      <InvokeMethod x:TypeArguments="x:String" MethodName="Concat" TargetType="x:String">
+        <InArgument x:TypeArguments="x:String" EvaluationOrder="0" Expression="-&gt; Hello " />
+        <InArgument x:TypeArguments="x:String" EvaluationOrder="1">
+          <VariableValue x:TypeArguments="x:String" Variable="{x:Reference __ReferenceID1}" />
+        </InArgument>
+      </InvokeMethod>
+    </InArgument>
+  </WriteLine>
+</Sequence>

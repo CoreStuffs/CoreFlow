@@ -11,7 +11,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.9.10" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
+    <PackageReference Include="System.Activities" Version="3.0.0-20200310-05" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,9 +20,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="System.Activities">
-      <HintPath>..\System.Activitites\System.Activities.dll</HintPath>
-    </Reference>
+    <None Update="workflow.xml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
   </ItemGroup>
 
 

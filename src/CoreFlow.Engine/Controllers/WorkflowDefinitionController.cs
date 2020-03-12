@@ -10,24 +10,26 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CoreFlow.Engine.Controllers
 {
+    // Maintain the database of Workflow Definitions
+
     [Route("api/[controller]")]
     [ApiController]
-    public class WorkflowInstanceController : ControllerBase
+    public class WorkflowDefinitionController : ControllerBase
     {
         RuntimeEngine runtime;
-        public WorkflowInstanceController(RuntimeEngine runtime)
+        public WorkflowDefinitionController(RuntimeEngine runtime)
         {
             this.runtime = runtime;
         }
 
-        // GET: api/WorkflowInstance
+        // GET: api/WorkflowDefinition
         [HttpGet]
-        public IEnumerable<WorkflowInstance> Get()
+        public IEnumerable<String> Get()
         {
-            return runtime.GetInstances();
+            return new String[];
         }
 
-        // GET: api/WorkflowInstance/5
+        // GET: api/WorkflowDefinition/5
         [HttpGet("{id}", Name = "Get")]
         public string Get(int id)
         {
@@ -40,13 +42,13 @@ namespace CoreFlow.Engine.Controllers
         {
         }
 
-        // PUT: api/WorkflowInstance/5
+        // PUT: api/WorkflowDefinition/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
         }
 
-        // DELETE: api/ApiWithActions/5
+        // DELETE: api/WorkflowDefinition/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {

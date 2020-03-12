@@ -8,10 +8,12 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml.Linq;
+using CoreFlow.Shared;
+using System.Activities.Hosting;
 
 namespace CoreFlow.Activities.InstanceStores
 {
-    public class FileInstanceStore : InstanceStore
+    public class FileInstanceStore : InstanceStore, IInstanceDirectory
     {
         private readonly string _storeDirectoryPath;
 
@@ -264,6 +266,11 @@ namespace CoreFlow.Activities.InstanceStores
             }
 
             return destination;
+        }
+
+        public IEnumerable<WorkflowInstance> GetInstances()
+        {
+            throw new NotImplementedException();
         }
     }
 }

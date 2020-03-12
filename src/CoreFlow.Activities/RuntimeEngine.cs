@@ -10,6 +10,7 @@ using System.Activities.Tracking;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using CoreFlow.Shared;
 
 namespace CoreFlow.Activities
 {
@@ -17,7 +18,7 @@ namespace CoreFlow.Activities
     {
         InstanceStore instanceStore;
         List<Object> extensions = new List<object>();
-
+        Guid lastid;
         public RuntimeEngine()
         {
 
@@ -47,6 +48,7 @@ namespace CoreFlow.Activities
             };
             var app = new WorkflowApplication(wf);
             Console.WriteLine(app.Id);
+            lastid = app.Id;
         }
 
         public RuntimeEngine WithInstanceStore(InstanceStore instanceStore)
@@ -66,13 +68,12 @@ namespace CoreFlow.Activities
             return extensions.OfType<T>().FirstOrDefault();
         }
 
-        public IEnumerable<String> GetInstances()
+        public IEnumerable<WorkflowInstance> GetInstances()
         {
-            
-            return new List<String>() { "abc" };
+            return GetExtension<IInstanceDirectory>()?.GetInstances();
         }
 
-
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1305:Specify IFormatProvider", Justification = "<Pending>")]
         private WorkflowApplication EnrichWorkflowApplication(WorkflowApplication workflowApplication)
         {
 
