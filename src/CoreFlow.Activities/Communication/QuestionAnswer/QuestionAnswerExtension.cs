@@ -20,9 +20,14 @@ namespace CoreFlow.Activities.Communication.QuestionAnswer
             Task.Run(() =>
             {
                 Questions.Add(ActivityId, Question);
-                Console.WriteLine("Question added: " + Question);
-                String answer = Console.ReadLine();
-                _instance.BeginResumeBookmark(new Bookmark("QuestionAnswerBookmark" + ActivityId), answer, (o) => { Console.WriteLine("End of ResumeBookmark"); }, null);
+                Console.WriteLine("Question added: " + Question + " [Bookmark: QuestionAnswerBookmark" + ActivityId+"]");
+                Console.WriteLine("Now, navigate to https://localhost:5001/api/instance/{0}/QuestionAnswerBookmark{1}/John%20Smith", _instance.Id, ActivityId);
+
+                //String answer = Console.ReadLine();
+                //_instance.BeginResumeBookmark(new Bookmark("QuestionAnswerBookmark" + ActivityId), answer, (o) =>
+                //{
+                //    Console.WriteLine("End of ResumeBookmark");
+                //}, null);
 
             });
 

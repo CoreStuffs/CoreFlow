@@ -28,7 +28,7 @@ namespace CoreFlow.Engine
         {
             services.AddControllers();
             services.AddSingleton<RuntimeEngine>((services) => {
-                var store = new CoreFlow.Activities.InstanceStores.FileInstanceStore("./");
+                var store = new CoreFlow.Activities.InstanceStores.FileInstanceStore(System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "CoreFlow/Instances"));
                 return new RuntimeEngine().WithInstanceStore(store).AddExtension(new CoreFlow.Activities.WorkflowModelCatalog.FileWorkflowModelCatalog());
             });
 

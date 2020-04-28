@@ -45,10 +45,23 @@ namespace CoreFlow.Activities
             return GetExtension<IInstanceDirectory>()?.GetInstances();
         }
 
+
+        public void ResumeBookmark(Guid instanceId, String bookmark, Object input)
+        {
+            var ii = WorkflowApplication.GetInstance(instanceId, instanceStore);
+            var WorkflowDefinition = this.GetExtension<IWorkflowModelCatalog>()?.GetActiveModel("Process1");
+            var app = new WorkflowApplication(WorkflowDefinition, ii.DefinitionIdentity);
+            EnrichWorkflowApplication(app);
+            app.Load(instanceId);
+            app.ResumeBookmark(bookmark, input);
+        }
+
         public Guid StartNewInstance(String modelName)
         {
-            var wf = this.GetExtension<IWorkflowModelCatalog>()?.GetActiveModel(modelName);
+            WorkflowIdentity workflowIdentity = new WorkflowIdentity("Process1", new Version(0, 1), "wf");
+            var wf = this.GetExtension<IWorkflowModelCatalog>()?.GetActiveModel("Process1");
             var app = new WorkflowApplication(wf);
+            EnrichWorkflowApplication(app);
             app.Run();
             lastid = app.Id;
             Console.WriteLine(lastid);
@@ -91,7 +104,7 @@ namespace CoreFlow.Activities
                 }
                 else if (e.CompletionState == ActivityInstanceState.Canceled)
                 {
-                    Console.WriteLine("Workflow Canceled.");
+                    Console.WriteLine("Workflow Canceled : " + workflowApplication.Id);
                 }
                 else
                 {
@@ -100,7 +113,7 @@ namespace CoreFlow.Activities
                         foreach (var kvp in e.Outputs)
                             Console.WriteLine("Output --> {0} : {1}", kvp.Key, kvp.Value.ToString());
                     }
-                    Console.WriteLine("Success");
+                    Console.WriteLine("Success : " + workflowApplication.Id);
                 }
             };
 
@@ -121,14 +134,14 @@ namespace CoreFlow.Activities
 
             workflowApplication.PersistableIdle = delegate (WorkflowApplicationIdleEventArgs e)
             {
-                Console.WriteLine("PersistableIdle");
+                Console.WriteLine("PersistableIdle : " + workflowApplication.Id);
                 return PersistableIdleAction.Unload;
             };
 
             workflowApplication.Idle = delegate (WorkflowApplicationIdleEventArgs e)
             {
 
-                Console.WriteLine("Idle");
+                Console.WriteLine("Idle : " + workflowApplication.Id);
 
             };
 

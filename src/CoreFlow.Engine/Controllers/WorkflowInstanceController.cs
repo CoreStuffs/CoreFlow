@@ -20,29 +20,30 @@ namespace CoreFlow.Engine.Controllers
             this.runtime = runtime;
         }
 
-        // GET: api/WorkflowInstance
+        // GET: api/instance
         [HttpGet]
-        public IEnumerable<WorkflowInstance> Get()
+        public IActionResult Get()
         {
             runtime.StartNewInstance("Process1");
 
-            return runtime.GetInstances();
+            return Ok(runtime.GetInstances());
         }
 
-        // GET: api/WorkflowInstance/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        // GET: api/instance/5
+        [HttpGet("{id}/{bookmark}/{data}")]
+        public IActionResult Get(Guid id, String bookmark, String data)
         {
-            return "value";
+            runtime.ResumeBookmark(id, bookmark, data);
+            return Ok();
         }
 
-        // POST: api/WorkflowInstance
+        // POST: api/instance
         [HttpPost]
         public void Post([FromBody] string value)
         {
         }
 
-        // PUT: api/WorkflowInstance/5
+        // PUT: api/instance/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {

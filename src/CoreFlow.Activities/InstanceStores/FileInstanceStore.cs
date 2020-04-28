@@ -10,6 +10,7 @@ using System.IO;
 using System.Xml.Linq;
 using CoreFlow.Shared;
 using System.Activities.Hosting;
+using System.Linq;
 
 namespace CoreFlow.Activities.InstanceStores
 {
@@ -19,11 +20,11 @@ namespace CoreFlow.Activities.InstanceStores
 
         private readonly JsonSerializerSettings _jsonSerializerSettings = new JsonSerializerSettings
         {
-            TypeNameHandling = TypeNameHandling.Auto,
+            TypeNameHandling = TypeNameHandling.None,
             TypeNameAssemblyFormatHandling = TypeNameAssemblyFormatHandling.Simple,
-            ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor,
+            ConstructorHandling = ConstructorHandling.Default,
             ObjectCreationHandling = ObjectCreationHandling.Replace,
-            PreserveReferencesHandling = PreserveReferencesHandling.Objects
+            PreserveReferencesHandling = PreserveReferencesHandling.All
         };
 
         public FileInstanceStore(string storeDirectoryPath)
