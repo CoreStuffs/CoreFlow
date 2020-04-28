@@ -19,8 +19,14 @@ namespace CoreFlow.Activities.Communication.REST
         }
         public String CallApi(String Url)
         {
+            WebProxy proxy = new WebProxy(WebRequest.GetSystemWebProxy().GetProxy(new Uri(Url))); //new WebProxy();
+            //proxy.Address = new Uri("http://webproxy-dr.erbhlux.lan:8080");
+            proxy.UseDefaultCredentials = true;
+            proxy.BypassProxyOnLocal = true;
+
 
             WebClient wc = new WebClient();
+            wc.Proxy = proxy;
             // Let's simulate a slow call
             Console.WriteLine("Calling {0} ...", Url);
 
